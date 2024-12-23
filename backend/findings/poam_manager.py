@@ -4,13 +4,12 @@ from datetime import datetime
 import os
 from models import POAM, Finding  # Import database models
 import pandas as pd
-
+from models import ConfigurationFinding
 TEMPLATE_PATH = "/mnt/data/FedRAMP-POAM-Template.xlsx"
 
 def export_poam_with_template():
     """
-    Populates the provided FedRAMP PO&AM Template with data for all three sheets:
-    Open POA&M Items, Closed POA&M Items, and Configuration Findings.
+    Populates the FedRAMP PO&AM Template with data for Open POA&M Items, Closed POA&M Items, and Configuration Findings.
     """
     # Load the Excel template
     workbook = load_workbook(TEMPLATE_PATH)
@@ -24,14 +23,11 @@ def export_poam_with_template():
     open_items = POAM.query.filter_by(status="Active").all()
     closed_items = POAM.query.filter_by(status="Resolved").all()
 
-    # Mocked configuration findings; replace with actual database query
-    configuration_findings = [
-        {"id": 1, "description": "Database lacks encryption", "severity": "Medium", "detection_date": "2024-12-01"},
-        {"id": 2, "description": "Unauthorized access detected", "severity": "High", "detection_date": "2024-11-25"}
-    ]
+    # Fetch Configuration Findings
+    configuration_findings = ConfigurationFinding.query.all()
 
     # Populate Open POA&M Items
-    open_row = 2  # Assuming the first row is the header
+    open_row = 2
     for item in open_items:
         open_sheet[f"A{open_row}"] = item.id
         open_sheet[f"B{open_row}"] = item.weakness
@@ -63,13 +59,19 @@ def export_poam_with_template():
     # Populate Configuration Findings
     config_row = 2
     for finding in configuration_findings:
-        config_sheet[f"A{config_row}"] = finding["id"]
-        config_sheet[f"B{config_row}"] = finding["description"]
-        config_sheet[f"C{config_row}"] = finding["severity"]
-        config_sheet[f"D{config_row}"] = finding["detection_date"]
+        config_sheet[f"A{config_row}"] = finding.id
+        config_sheet[f"B{config_row}"] = finding.description
+        config_sheet[f"C{config_row}"] = finding.severity
+        config_sheet[f"D{config_row}"] = datetime.strftime(finding.detection_date, "%m/%d/%Y")
+        config_sheet[f"E{config_row}"] = finding.product_name
         config_row += 1
 
     # Save the populated template
     output_path = "Exported_FedRAMP_POAM.xlsx"
     workbook.save(output_path)
     return output_path
+def get_configuration_findings():
+    """
+    Fetch all configuration findings from the database.
+    """
+    return ConfigurationFinding.query.all()

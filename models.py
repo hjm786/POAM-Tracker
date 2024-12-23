@@ -1,5 +1,10 @@
 from flask_sqlalchemy import SQLAlchemy
 
+
+
+
+
+
 db = SQLAlchemy()
 
 class Integration(db.Model):
@@ -17,6 +22,45 @@ class Finding(db.Model):
     is_resolved = db.Column(db.Boolean, default=False)
     poam_id = db.Column(db.Integer, db.ForeignKey('poam.id'))
 
+
+class ConfigurationFinding(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    poam_id = db.Column(db.String(50), nullable=False)
+    controls = db.Column(db.String(255), nullable=True)
+    weakness_name = db.Column(db.String(255), nullable=False)
+    weakness_description = db.Column(db.Text, nullable=True)
+    detector_source = db.Column(db.String(50), nullable=True)
+    source_identifier = db.Column(db.String(50), nullable=True)
+    asset_identifier = db.Column(db.Text, nullable=True)
+    point_of_contact = db.Column(db.String(100), nullable=True)
+    resources_required = db.Column(db.String(255), nullable=True)
+    remediation_plan = db.Column(db.Text, nullable=True)
+    detection_date = db.Column(db.DateTime, nullable=True)
+    completion_date = db.Column(db.DateTime, nullable=True)
+    planned_milestones = db.Column(db.Text, nullable=True)
+    milestone_changes = db.Column(db.Text, nullable=True)
+    status_date = db.Column(db.DateTime, nullable=True)
+    vendor_dependency = db.Column(db.String(10), nullable=True)
+    vendor_checkin_date = db.Column(db.DateTime, nullable=True)
+    product_name = db.Column(db.String(255), nullable=True)
+    original_risk_rating = db.Column(db.String(50), nullable=True)
+    adjusted_risk_rating = db.Column(db.String(50), nullable=True)
+    risk_adjustment = db.Column(db.String(10), nullable=True)
+    false_positive = db.Column(db.String(10), nullable=True)
+    operational_requirement = db.Column(db.String(10), nullable=True)
+    deviation_rationale = db.Column(db.Text, nullable=True)
+    supporting_documents = db.Column(db.Text, nullable=True)
+    comments = db.Column(db.Text, nullable=True)
+    auto_approve = db.Column(db.String(10), nullable=True)
+    bod_22_01_tracking = db.Column(db.String(10), nullable=True)
+    bod_22_01_due_date = db.Column(db.DateTime, nullable=True)
+    cve = db.Column(db.String(255), nullable=True)
+
+    def __repr__(self):
+        return f"<ConfigurationFinding {self.id} - {self.weakness_name}>"
+
+
+
 class POAM(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     weakness = db.Column(db.String(255), nullable=False)
@@ -28,3 +72,10 @@ def initialize_db(app):
     db.init_app(app)
     with app.app_context():
         db.create_all()
+
+
+
+
+
+
+

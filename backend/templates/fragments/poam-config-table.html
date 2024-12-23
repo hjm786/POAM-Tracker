@@ -1,0 +1,72 @@
+<table>
+    <thead>
+        <tr>
+            <th>POAM ID</th>
+            <th>Controls</th>
+            <th>Weakness Name</th>
+            <th>Weakness Description</th>
+            <th>Weakness Detector Source</th>
+            <th>Weakness Source Identifier</th>
+            <th>Asset Identifier</th>
+            <th>Point of Contact</th>
+            <th>Resources Required</th>
+            <th>Overall Remediation Plan</th>
+            <th>Original Detection Date</th>
+            <th>Scheduled Completion Date</th>
+            <th>Planned Milestones</th>
+            <th>Milestone Changes</th>
+            <th>Status Date</th>
+            <th>Vendor Dependency</th>
+            <th>Last Vendor Check-in Date</th>
+            <th>Vendor Dependent Product Name</th>
+            <th>Original Risk Rating</th>
+            <th>Adjusted Risk Rating</th>
+            <th>Risk Adjustment</th>
+            <th>False Positive</th>
+            <th>Operational Requirement</th>
+            <th>Deviation Rationale</th>
+            <th>Supporting Documents</th>
+            <th>Comments</th>
+            <th>Auto-Approve</th>
+            <th>Binding Operational Directive 22-01 Tracking</th>
+            <th>Binding Operational Directive 22-01 Due Date</th>
+            <th>CVE</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for finding in findings %}
+        <tr>
+            <td>{{ finding.poam_id }}</td>
+            <td>{{ finding.controls }}</td>
+            <td>{{ finding.weakness_name }}</td>
+            <td>{{ finding.weakness_description }}</td>
+            <td>{{ finding.detector_source }}</td>
+            <td>{{ finding.source_identifier }}</td>
+            <td>{{ finding.asset_identifier }}</td>
+            <td>{{ finding.point_of_contact }}</td>
+            <td>{{ finding.resources_required }}</td>
+            <td>{{ finding.remediation_plan }}</td>
+            <td>{{ finding.detection_date.strftime('%m/%d/%Y') if finding.detection_date else '' }}</td>
+            <td>{{ finding.completion_date.strftime('%m/%d/%Y') if finding.completion_date else '' }}</td>
+            <td>{{ finding.planned_milestones }}</td>
+            <td>{{ finding.milestone_changes }}</td>
+            <td>{{ finding.status_date.strftime('%m/%d/%Y') if finding.status_date else '' }}</td>
+            <td>{{ finding.vendor_dependency }}</td>
+            <td>{{ finding.vendor_checkin_date.strftime('%m/%d/%Y') if finding.vendor_checkin_date else '' }}</td>
+            <td>{{ finding.product_name }}</td>
+            <td>{{ finding.original_risk_rating }}</td>
+            <td>{{ finding.adjusted_risk_rating }}</td>
+            <td>{{ finding.risk_adjustment }}</td>
+            <td>{{ finding.false_positive }}</td>
+            <td>{{ finding.operational_requirement }}</td>
+            <td>{{ finding.deviation_rationale }}</td>
+            <td>{{ finding.supporting_documents }}</td>
+            <td>{{ finding.comments }}</td>
+            <td>{{ finding.auto_approve }}</td>
+            <td>{{ finding.bod_22_01_tracking }}</td>
+            <td>{{ finding.bod_22_01_due_date.strftime('%m/%d/%Y') if finding.bod_22_01_due_date else '' }}</td>
+            <td>{{ finding.cve }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

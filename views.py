@@ -3,6 +3,10 @@ from models import db, Integration, POAM, Finding
 import pandas as pd
 from backend.findings.poam_manager import generate_poam_excel
 from backend.findings.scan_manager import generate_scan_results_excel
+from flask import render_template
+from jinja2 import TemplateNotFound
+from backend.findings.poam_manager import get_configuration_findings
+
 
 main_bp = Blueprint('main', __name__)
 
@@ -55,6 +59,7 @@ def poam_items():
     poam_items = POAM.query.filter_by(status=status).all()
     return render_template('fragments/poam_table.html', items=poam_items)
 
+
 @main_bp.route('/export-poam', methods=['GET'])
 def export_poam():
     file_path = export_poam_with_template()
@@ -66,3 +71,15 @@ def export_scan_results():
     scan_id = request.args.get('scan_id')
     file_path = generate_scan_results_excel(scan_id)
     return send_file(file_path, as_attachment=True)
+
+
+@main_bp.route('/config-findings', methods=['GET'])
+def config_findings():
+    """
+    Render the Configuration Findings table.
+    """
+    findings = get_configuration_findings()
+    return render_template('fragments/poam-config-table.html', findings=findings)
+
+
+

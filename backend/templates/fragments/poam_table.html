@@ -1,0 +1,74 @@
+<table>
+    <thead>
+        <tr>
+            <th>POAM ID</th>
+            <th>Controls</th>
+            <th>Weakness Name</th>
+            <th>Weakness Description</th>
+            <th>Weakness Detector Source</th>
+            <th>Weakness Source Identifier</th>
+            <th>Asset Identifier</th>
+            <th>Point of Contact</th>
+            <th>Resources Required</th>
+            <th>Overall Remediation Plan</th>
+            <th>Original Detection Date</th>
+            <th>Scheduled Completion Date</th>
+            <th>Planned Milestones</th>
+            <th>Milestone Changes</th>
+            <th>Status Date</th>
+            <th>Vendor Dependency</th>
+            <th>Last Vendor Check-in Date</th>
+            <th>Vendor Dependent Product Name</th>
+            <th>Original Risk Rating</th>
+            <th>Adjusted Risk Rating</th>
+            <th>Risk Adjustment</th>
+            <th>False Positive</th>
+            <th>Operational Requirement</th>
+            <th>Deviation Rationale</th>
+            <th>Supporting Documents</th>
+            <th>Comments</th>
+            <th>Auto-Approve</th>
+            <th>Binding Operational Directive 22-01 Tracking</th>
+            <th>Binding Operational Directive 22-01 Due Date</th>
+            <th>CVE</th>
+            <th>Service Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in items %}
+        <tr>
+            <td>{{ item.poam_id }}</td>
+            <td>{{ item.controls }}</td>
+            <td>{{ item.weakness_name }}</td>
+            <td>{{ item.weakness_description }}</td>
+            <td>{{ item.detector_source }}</td>
+            <td>{{ item.source_identifier }}</td>
+            <td>{{ item.asset_identifier }}</td>
+            <td>{{ item.point_of_contact }}</td>
+            <td>{{ item.resources_required }}</td>
+            <td>{{ item.remediation_plan }}</td>
+            <td>{{ item.detection_date.strftime('%m/%d/%Y') if item.detection_date else '' }}</td>
+            <td>{{ item.completion_date.strftime('%m/%d/%Y') if item.completion_date else '' }}</td>
+            <td>{{ item.planned_milestones }}</td>
+            <td>{{ item.milestone_changes }}</td>
+            <td>{{ item.status_date.strftime('%m/%d/%Y') if item.status_date else '' }}</td>
+            <td>{{ item.vendor_dependency }}</td>
+            <td>{{ item.vendor_checkin_date.strftime('%m/%d/%Y') if item.vendor_checkin_date else '' }}</td>
+            <td>{{ item.product_name }}</td>
+            <td>{{ item.original_risk_rating }}</td>
+            <td>{{ item.adjusted_risk_rating }}</td>
+            <td>{{ item.risk_adjustment }}</td>
+            <td>{{ item.false_positive }}</td>
+            <td>{{ item.operational_requirement }}</td>
+            <td>{{ item.deviation_rationale }}</td>
+            <td>{{ item.supporting_documents }}</td>
+            <td>{{ item.comments }}</td>
+            <td>{{ item.auto_approve }}</td>
+            <td>{{ item.bod_22_01_tracking }}</td>
+            <td>{{ item.bod_22_01_due_date.strftime('%m/%d/%Y') if item.bod_22_01_due_date else '' }}</td>
+            <td>{{ item.cve }}</td>
+            <td>{{ item.service_name }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

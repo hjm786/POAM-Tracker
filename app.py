@@ -1,8 +1,14 @@
 from flask import Flask
 from models import db, initialize_db
 from views import main_bp
+from flask import render_template
+from jinja2 import TemplateNotFound
+app = Flask(
+    __name__,
+    static_folder="backend/static",      # Updated path for static files
+    template_folder="backend/templates" # Updated path for templates
+)
 
-app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
