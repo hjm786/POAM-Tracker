@@ -12,14 +12,18 @@ from backend.findings.poam_manager import (
     link_asset_to_poam
 )
 
+# Create a Flask Blueprint for routing
 main_bp = Blueprint('main', __name__)
 
 @main_bp.route('/')
 def dashboard():
+    """Main dashboard view"""
     return render_template('dashboard.html')
 
 @main_bp.route('/scans')
 def get_scans():
+    """Return available security scans for dropdown selection"""
+    # TODO: Replace with actual scan data from database
     scans = [
         {"id": 1, "name": "AWS Inspector - Critical"},
         {"id": 2, "name": "Tenable - Configuration"}
@@ -28,16 +32,23 @@ def get_scans():
 
 @main_bp.route('/scan-results', methods=['GET'])
 def get_scan_results():
+    """
+    Fetch and paginate scan results
+    Parameters:
+        scan (int): Scan ID from query parameters
+        page (int): Current page number, defaults to 1
+    """
     scan_id = request.args.get('scan', type=int)
     page = request.args.get('page', default=1, type=int)
     page_size = 5
 
-    # Mocked data; replace with actual database queries
+    # Mock data for demonstration - replace with actual database queries
     all_results = [
         {"tool": "AWS Inspector", "severity": "High", "description": f"Critical vulnerability {i}", "detection_date": "2024-12-01"}
         for i in range(1, 21)  # Simulate 20 results
     ]
 
+    # Implement pagination logic
     total_results = len(all_results)
     start = (page - 1) * page_size
     end = start + page_size
@@ -54,44 +65,13 @@ def get_scan_results():
         next_page=next_page
     )
 
-@main_bp.route('/poam-items', methods=['GET'])
-def poam_items():
-    poam_items = get_poam_items()
-    return render_template('fragments/poam_table.html', items=poam_items)
 
-@main_bp.route('/export-poam', methods=['GET'])
-def export_poam():
-    file_path = export_poam_with_template()
-    return send_file(file_path, as_attachment=True)
-
-@main_bp.route('/export-scan-results', methods=['GET'])
-def export_scan_results():
-    scan_id = request.args.get('scan_id')
-    file_path = generate_scan_results_excel(scan_id)
-    return send_file(file_path, as_attachment=True)
-
-@main_bp.route('/config-findings', methods=['GET'])
-def config_findings():
-    findings = get_configuration_findings()
-    return render_template('fragments/poam-config-table.html', findings=findings)
-
-@main_bp.route('/poam/<int:poam_id>/assets', methods=['GET'])
-def poam_assets(poam_id):
-    assets = get_assets_for_poam(poam_id)
-    return jsonify([{"id": asset.id, "name": asset.name, "description": asset.description} for asset in assets])
-
-@main_bp.route('/poam/<int:poam_id>/link-asset', methods=['POST'])
-def link_asset(poam_id):
-    asset_data = request.json
-    asset = link_asset_to_poam(poam_id, asset_data)
-    if asset:
-        return jsonify({"message": "Asset linked successfully", "asset_id": asset.id}), 200
-    return jsonify({"message": "POA&M item not found"}), 404
 
 @main_bp.route('/integrations', methods=['GET'])
 def integrations():
     """
     Render the integrations management page.
+    Returns a list of supported integrations with their current configurations.
     """
     integrations = [
         {"name": "AWS Inspector", "config": get_integration_config("aws_inspector")},
@@ -101,28 +81,16 @@ def integrations():
     ]
     return render_template('integrations.html', integrations=integrations)
 
-
-@main_bp.route('/integrations/<integration_name>', methods=['POST'])
-def update_integration(integration_name):
-    """
-    Update or save configuration for a specific integration.
-    """
-    config_data = request.json
-    set_integration_config(integration_name, config_data)
-    return jsonify({"message": f"{integration_name} configuration updated successfully!"}), 200
-
-@main_bp.route('/integrations/<integration_name>/edit', methods=['GET'])
-def edit_integration(integration_name):
-    """
-    Fetch the current configuration and render the edit form.
-    """
-    config = get_integration_config(integration_name) or {}
-    return render_template('fragments/edit_integration.html', integration_name=integration_name, config=config)
-
 @main_bp.route('/integrations/<integration_name>/config-template', methods=['GET'])
 def get_config_template(integration_name):
     """
     Return the configuration template for the selected integration.
+    
+    Provides field definitions for each supported integration including:
+    - Field names
+    - Labels
+    - Input types
+    - Available options for select fields
     """
     config_templates = {
         "aws_inspector": {
