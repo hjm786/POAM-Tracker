@@ -3,17 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>POAM Pilot</title>
+    <title>{% block title %}POA&M Manager{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <script src="https://unpkg.com/htmx.org"></script>
 </head>
 <body>
     <nav>
-        <a href="/">Dashboard</a> |
-        <a href="/scans">Scan Results</a> |
-        <a href="/poam-manager">PO&AM Manager</a>
+        <ul>
+            <li><a href="{{ url_for('main.dashboard') }}">Dashboard</a></li>
+            <li><a href="{{ url_for('main.poam_manager') }}">POA&M Manager</a></li>
+            <li><a href="{{ url_for('main.scan_results') }}">Scan Results</a></li>
+        </ul>
     </nav>
+
     <main>
-        {% block content %}{% endblock %}
+        {% block content %}
+        <!-- Page-specific content will go here -->
+        {% endblock %}
     </main>
+
+    <footer>
+        <p>&copy; 2024 POA&M Management System</p>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
 </body>
 </html>

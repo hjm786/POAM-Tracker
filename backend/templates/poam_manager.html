@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <!-- Header Section -->
+    <header>
+        <h1>POA&M Manager</h1>
+        <p>Manage and track all active and resolved POA&M items.</p>
+    </header>
+
+    <!-- Filters Section -->
+    <section id="filters">
+        <h2>Filters</h2>
+        <form hx-get="{{ url_for('main.poam_items') }}" hx-target="#poam-table-body" hx-swap="innerHTML">
+            <label for="status">Status:</label>
+            <select name="status" id="status">
+                <option value="Active">Active</option>
+                <option value="Resolved">Resolved</option>
+            </select>
+
+            <label for="severity">Severity:</label>
+            <select name="severity" id="severity">
+                <option value="">All</option>
+                <option value="High">High</option>
+                <option value="Medium">Medium</option>
+                <option value="Low">Low</option>
+            </select>
+
+            <button type="submit">Apply Filters</button>
+        </form>
+    </section>
+
+    <!-- POA&M Items Table -->
+    <section id="poam-table">
+        <h2>POA&M Items</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Weakness Name</th>
+                    <th>Status</th>
+                    <th>Severity</th>
+                    <th>Last Updated</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="poam-table-body" hx-get="{{ url_for('main.poam_items') }}" hx-trigger="load">
+                <!-- Rows will be dynamically populated by HTMX -->
+            </tbody>
+        </table>
+    </section>
+
+    <!-- Modal for Viewing/Editing POA&M Details -->
+    <div id="poam-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-btn" hx-on="click: hiddenToggle()">×</span>
+            <h2>POA&M Details</h2>
+            <form hx-post="{{ url_for('main.update_poam') }}" hx-target="#poam-modal" hx-swap="outerHTML">
+                <input type="hidden" name="id" id="poam-id">
+                <label for="weakness-name">Weakness Name:</label>
+                <input type="text" id="weakness-name" name="weakness_name" readonly>
+
+                <label for="planned-milestones">Planned Milestones:</label>
+                <textarea id="planned-milestones" name="planned_milestones"></textarea>
+
+                <label for="milestone-changes">Milestone Changes:</label>
+                <textarea id="milestone-changes" name="milestone_changes" readonly></textarea>
+
+                <label for="completion-date">Completion Date:</label>
+                <input type="date" id="completion-date" name="completion_date">
+
+                <button type="submit">Save Changes</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

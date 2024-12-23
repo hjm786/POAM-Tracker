@@ -1,5 +1,8 @@
 from flask import Blueprint, render_template, request, send_file, jsonify
 from models import POAM, Finding, db
+from backend.integrations.config_db import get_integration_config, set_integration_config
+
+
 from backend.findings.poam_manager import (
     export_poam_with_template,
     generate_scan_results_excel,
@@ -84,3 +87,26 @@ def link_asset(poam_id):
     if asset:
         return jsonify({"message": "Asset linked successfully", "asset_id": asset.id}), 200
     return jsonify({"message": "POA&M item not found"}), 404
+
+@main_bp.route('/integrations', methods=['GET'])
+def integrations():
+    """
+    Render the integrations management page.
+    """
+    integrations = [
+        {"name": "AWS Inspector", "config": get_integration_config("aws_inspector")},
+        {"name": "Tenable", "config": get_integration_config("tenable")},
+        {"name": "GitHub", "config": get_integration_config("github")},
+        {"name": "Google Space", "config": get_integration_config("google_space")},
+    ]
+    return render_template('integrations.html', integrations=integrations)
+
+
+@main_bp.route('/integrations/<integration_name>', methods=['POST'])
+def update_integration(integration_name):
+    """
+    Update or save configuration for a specific integration.
+    """
+    config_data = request.json
+    set_integration_config(integration_name, config_data)
+    return jsonify({"message": f"{integration_name} configuration updated successfully!"}), 200

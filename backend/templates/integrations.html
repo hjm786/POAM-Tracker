@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h1>Integration Configurations</h1>
+    <p>Manage and view integration configurations for your POA&M system.</p>
+
+    <div class="integration-list">
+        {% for integration in integrations %}
+        <div class="integration-item">
+            <h2>{{ integration.name }}</h2>
+            <div>
+                <p><strong>Current Configuration:</strong></p>
+                <pre>{{ integration.config | tojson }}</pre>
+            </div>
+            <button 
+                hx-get="{{ url_for('main.edit_integration', integration_name=integration.name) }}"
+                hx-target="#integration-modal" 
+                hx-swap="innerHTML">
+                Edit Configuration
+            </button>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Modal for Editing Configurations -->
+    <div id="integration-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">×</span>
+            <div id="modal-body">
+                <!-- Content loaded dynamically by HTMX -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function closeModal() {
+        document.getElementById('integration-modal').classList.add('hidden');
+    }
+</script>
+{% endblock %}
