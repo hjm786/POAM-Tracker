@@ -1,0 +1,16 @@
+version: '3.9'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    container_name: poam-pilot-app
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/workspaces/POAM-Pilot
+    environment:
+      - FLASK_ENV=production
+      - SQLALCHEMY_DATABASE_URI=sqlite:///app.db
+    command: gunicorn -b 0.0.0.0:5000 wsgi:app
