@@ -20,10 +20,6 @@ def export_poam_with_template():
     open_items = POAM.query.filter_by(status="Active").all()
     closed_items = POAM.query.filter_by(status="Resolved").all()
 
-    # Fetch Configuration Findings
-    configuration_findings = ConfigurationFinding.query.all()
-
-
    # Populate Open POA&M Items
     open_row = 6
     for item in open_items:
