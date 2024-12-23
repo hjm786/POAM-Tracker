@@ -1,0 +1,23 @@
+{
+    "ECSFargateScan": {
+      "ClusterName": "string",
+      "TaskDefinition": "string",
+      "ContainerImageDetails": {
+        "ImageDigest": "string",
+        "ImageTag": "string",
+        "RepositoryName": "string"
+      },
+      "Findings": {
+        "MisconfiguredSecrets": "boolean",
+        "VulnerabilitiesInImages": [
+          {
+            "CVE_ID": "string",
+            "Severity": "string",
+            "CVSS_Score": "number",
+            "PatchAvailable": "boolean"
+          }
+        ]
+      }
+    }
+  }
+  

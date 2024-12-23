@@ -1,0 +1,13 @@
+{
+    "ELBScan": {
+      "LoadBalancerName": "string",
+      "DNSName": "string",
+      "Region": "string",
+      "Findings": {
+        "TLSConfiguration": "string",
+        "LoggingEnabled": "boolean",
+        "CrossZoneLoadBalancing": "boolean"
+      }
+    }
+  }
+  

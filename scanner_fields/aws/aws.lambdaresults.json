@@ -1,0 +1,21 @@
+{
+    "LambdaFunctionScan": {
+      "FunctionName": "string",
+      "FunctionARN": "string",
+      "Runtime": "string",
+      "Handler": "string",
+      "CodeSize": "number",
+      "LastModified": "string",
+      "VulnerabilityDetails": {
+        "VulnerableLibraries": [
+          {
+            "LibraryName": "string",
+            "Version": "string",
+            "Severity": "string",
+            "FixAvailable": "boolean"
+          }
+        ]
+      }
+    }
+  }
+  

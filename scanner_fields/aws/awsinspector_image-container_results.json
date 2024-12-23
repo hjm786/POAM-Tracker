@@ -1,0 +1,75 @@
+{
+  "GeneralInformation": {
+    "FindingID": "string",
+    "Title": "string",
+    "Description": "string",
+    "Severity": "string",
+    "Recommendation": "string",
+    "InspectorScore": "number",
+    "Status": "string",
+    "FirstObservedAt": "string",
+    "LastObservedAt": "string",
+    "UpdatedAt": "string"
+  },
+  "ContainerImageDetails": {
+    "ImageDigest": "string",
+    "ImageTag": "string",
+    "RepositoryName": "string",
+    "RegistryID": "string",
+    "ImageSize": "number",
+    "OperatingSystem": "string",
+    "Architecture": "string"
+  },
+  "VulnerabilityDetails": {
+    "CVEID": "string",
+    "PackageName": "string",
+    "PackageVersion": "string",
+    "FixedVersion": "string",
+    "VulnerabilityDescription": "string",
+    "CVSSScore": "number",
+    "CVSSVector": {
+      "AttackVector": "string",
+      "AttackComplexity": "string",
+      "PrivilegesRequired": "string",
+      "UserInteraction": "string",
+      "Scope": "string",
+      "ConfidentialityImpact": "string",
+      "IntegrityImpact": "string",
+      "AvailabilityImpact": "string"
+    },
+    "Exploitability": "boolean",
+    "PublishedDate": "string",
+    "VendorSeverity": "string"
+  },
+  "ComplianceDetails": {
+    "ComplianceStandard": "string",
+    "ControlID": "string",
+    "ComplianceStatus": "string",
+    "Recommendation": "string"
+  },
+  "RemediationInformation": {
+    "FixAvailable": "boolean",
+    "MitigationSteps": "string",
+    "RemediationRecommendation": "string"
+  },
+  "ImageLayers": [
+    {
+      "LayerDigest": "string",
+      "LayerDetails": "string"
+    }
+  ],
+  "Metadata": {
+    "Tags": {
+      "Key": "Value"
+    },
+    "AWSRegion": "string",
+    "RepositoryTags": [
+      "string"
+    ]
+  },
+  "AdvancedFields": {
+    "ExploitedInTheWild": "boolean",
+    "RiskScore": "number",
+    "PackagePath": "string"
+  }
+}

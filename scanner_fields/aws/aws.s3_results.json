@@ -1,0 +1,15 @@
+{
+    "S3BucketScan": {
+      "BucketName": "string",
+      "BucketARN": "string",
+      "Region": "string",
+      "Findings": {
+        "PublicAccess": "boolean",
+        "BucketPolicies": "string",
+        "EncryptionStatus": "boolean",
+        "VersioningStatus": "boolean",
+        "LoggingEnabled": "boolean"
+      }
+    }
+  }
+  

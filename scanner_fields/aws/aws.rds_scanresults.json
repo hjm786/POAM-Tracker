@@ -1,0 +1,20 @@
+{
+    "RDSInstanceScan": {
+      "InstanceID": "string",
+      "DBEngine": "string",
+      "DBVersion": "string",
+      "Region": "string",
+      "Findings": {
+        "EncryptionStatus": "boolean",
+        "PublicAccess": "boolean",
+        "BackupConfiguration": "boolean"
+      },
+      "VulnerabilityDetails": {
+        "CVE_ID": "string",
+        "Severity": "string",
+        "CVSS_Score": "number",
+        "PatchAvailable": "boolean"
+      }
+    }
+  }
+  

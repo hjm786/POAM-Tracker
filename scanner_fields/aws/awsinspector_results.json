@@ -1,0 +1,67 @@
+{
+    "GeneralInformation": {
+      "FindingID": "string",
+      "Title": "string",
+      "Description": "string",
+      "Severity": "string",
+      "Recommendation": "string",
+      "InspectorScore": "number",
+      "Status": "string"
+    },
+    "ResourceDetails": {
+      "ResourceID": "string",
+      "ResourceType": "string",
+      "ResourceTags": {
+        "Key": "Value"
+      },
+      "AWSAccountID": "string",
+      "Region": "string"
+    },
+    "VulnerabilityDetails": {
+      "CVEID": "string",
+      "PackageName": "string",
+      "PackageVersion": "string",
+      "VulnerabilityDescription": "string",
+      "ExploitAvailable": "boolean",
+      "CVSSScore": "number",
+      "CVSSMetrics": {
+        "AttackVector": "string",
+        "AttackComplexity": "string"
+      }
+    },
+    "NetworkReachability": {
+      "AccessiblePort": "number",
+      "Protocol": "string",
+      "SecurityGroup": "string",
+      "Subnet": "string"
+    },
+    "ComplianceInformation": {
+      "ComplianceStandard": "string",
+      "ControlID": "string",
+      "ComplianceStatus": "string"
+    },
+    "Metadata": {
+      "FirstObservedAt": "string",
+      "LastObservedAt": "string",
+      "UpdatedAt": "string",
+      "Tags": {
+        "Key": "Value"
+      }
+    },
+    "InsightsAndEvidence": {
+      "AffectedInstances": [
+        "string"
+      ],
+      "Evidence": "string",
+      "AnalysisType": "string",
+      "RemediationSteps": "string"
+    },
+    "AdditionalFields": {
+      "Exploitability": "string",
+      "FixAvailable": "boolean",
+      "PatchVersion": "string",
+      "MitigationSteps": "string",
+      "ToolVersion": "string"
+    }
+  }
+  

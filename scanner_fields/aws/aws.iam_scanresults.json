@@ -1,0 +1,20 @@
+{
+    "IAMRolePolicyScan": {
+      "RoleName": "string",
+      "PolicyName": "string",
+      "PolicyARN": "string",
+      "AttachedPermissions": [
+        "string"
+      ],
+      "OverPermissionedResources": [
+        "string"
+      ],
+      "Findings": {
+        "PrivilegeEscalationRisk": "boolean",
+        "UnnecessaryPermissions": [
+          "string"
+        ]
+      }
+    }
+  }
+  

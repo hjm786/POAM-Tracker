@@ -1,0 +1,97 @@
+{
+    "GeneralInformation": {
+      "ScanID": "string",
+      "ScanName": "string",
+      "Description": "string",
+      "ScanType": "string",
+      "PolicyName": "string",
+      "StartTime": "string",
+      "EndTime": "string",
+      "Status": "string"
+    },
+    "HostInformation": {
+      "HostID": "string",
+      "HostName": "string",
+      "OperatingSystem": "string",
+      "MACAddress": "string",
+      "FQDN": "string",
+      "NetBIOSName": "string",
+      "Tags": {
+        "Key": "Value"
+      }
+    },
+    "VulnerabilityDetails": {
+      "PluginID": "string",
+      "PluginName": "string",
+      "PluginFamily": "string",
+      "Severity": "string",
+      "VulnerabilityID": "string",
+      "Description": "string",
+      "RiskFactor": "string",
+      "Solution": "string",
+      "PluginOutput": "string"
+    },
+    "CVSSDetails": {
+      "CVSSBaseScore": "number",
+      "CVSSTemporalScore": "number",
+      "CVSSVector": "string",
+      "ExploitabilityScore": "number",
+      "ExploitAvailable": "boolean",
+      "PatchAvailable": "boolean"
+    },
+    "AffectedSoftware": {
+      "InstalledSoftware": "string",
+      "SoftwareVersion": "string",
+      "EndOfLife": "boolean"
+    },
+    "NetworkDetails": {
+      "Port": "number",
+      "Protocol": "string",
+      "Service": "string"
+    },
+    "ComplianceInformation": {
+      "ComplianceCheckID": "string",
+      "ComplianceFramework": "string",
+      "ComplianceStatus": "string",
+      "PolicyName": "string",
+      "Description": "string",
+      "Recommendation": "string"
+    },
+    "ScanMetadata": {
+      "ScannerName": "string",
+      "ScannerType": "string",
+      "ScanDuration": "string",
+      "ScanSchedule": "string",
+      "AgentName": "string"
+    },
+    "EvidenceAndInsights": {
+      "Evidence": "string",
+      "RemediationSteps": "string",
+      "AffectedHosts": [
+        "string"
+      ],
+      "AnalysisType": "string"
+    },
+    "AdvancedFields": {
+      "ExploitedInTheWild": "boolean",
+      "VulnerabilityPublicationDate": "string",
+      "RiskInformation": "string",
+      "CustomAttributes": {
+        "Key": "Value"
+      },
+      "ExploitFramework": "string"
+    },
+    "TagsAndCustomMetadata": {
+      "HostTags": {
+        "Key": "Value"
+      },
+      "CustomFields": {
+        "Key": "Value"
+      }
+    },
+    "PerformanceMetrics": {
+      "ScanPerformance": "string",
+      "AgentHealth": "string"
+    }
+  }
+  

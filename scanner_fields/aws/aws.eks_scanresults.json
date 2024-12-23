@@ -1,0 +1,30 @@
+{
+    "EKSScan": {
+      "ClusterName": "string",
+      "Region": "string",
+      "NodeGroupDetails": {
+        "NodeGroupName": "string",
+        "InstanceType": "string",
+        "NodeCount": "number"
+      },
+      "Findings": {
+        "RBACMisconfigurations": "boolean",
+        "VulnerabilitiesInNodes": [
+          {
+            "CVE_ID": "string",
+            "Severity": "string",
+            "CVSS_Score": "number",
+            "PatchAvailable": "boolean"
+          }
+        ],
+        "ComplianceViolations": [
+          {
+            "ComplianceStandard": "string",
+            "ControlID": "string",
+            "ComplianceStatus": "string"
+          }
+        ]
+      }
+    }
+  }
+  

@@ -1,0 +1,26 @@
+{
+    "EC2InstanceScan": {
+      "FindingID": "string",
+      "InstanceID": "string",
+      "AMI_ID": "string",
+      "Region": "string",
+      "Tags": {
+        "Key": "Value"
+      },
+      "VulnerabilityDetails": {
+        "CVE_ID": "string",
+        "Severity": "string",
+        "CVSS_Score": "number",
+        "AffectedSoftware": "string",
+        "PatchAvailable": "boolean",
+        "Exploitability": "boolean"
+      },
+      "ComplianceDetails": {
+        "ComplianceStandard": "string",
+        "ControlID": "string",
+        "ComplianceStatus": "string",
+        "Recommendation": "string"
+      }
+    }
+  }
+  
