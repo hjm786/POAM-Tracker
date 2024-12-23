@@ -68,6 +68,11 @@
             <td>{{ item.bod_22_01_due_date.strftime('%m/%d/%Y') if item.bod_22_01_due_date else '' }}</td>
             <td>{{ item.cve }}</td>
             <td>{{ item.service_name }}</td>
+            <td>
+                {% for asset in item.assets %}
+                    {{ asset.name }}<br>
+                {% endfor %}
+            </td>
         </tr>
         {% endfor %}
     </tbody>
