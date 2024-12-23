@@ -81,5 +81,8 @@ def config_findings():
     findings = get_configuration_findings()
     return render_template('fragments/poam-config-table.html', findings=findings)
 
-
+@main_bp.route('/poam-items', methods=['GET'])
+def poam_items():
+    poam_items = POAM.query.all()  # Fetch all POA&M items
+    return render_template('fragments/poam_table.html', items=poam_items)
 

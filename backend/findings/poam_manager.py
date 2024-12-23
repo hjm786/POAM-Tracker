@@ -75,3 +75,9 @@ def get_configuration_findings():
     Fetch all configuration findings from the database.
     """
     return ConfigurationFinding.query.all()
+
+
+def get_open_poams():
+    return POAM.query.filter_by(status="Active").all()
+
+
