@@ -39,10 +39,6 @@ The POAM (Plan of Action and Milestones) Pilot App is a web-based application de
    - Easily deployable using Docker and Docker Compose.
    - Includes a lightweight, production-ready Flask backend.
 
-9. **Scalability and Maintainability**:
-   - Modular code structure with separate directories for integrations, findings management, static files, templates, and tests.
-   - Supports adding new integrations and compliance frameworks with minimal changes.
-
 ---
 
 ### How It Works
@@ -66,14 +62,7 @@ The POAM (Plan of Action and Milestones) Pilot App is a web-based application de
 
 1. **Compliance Teams**:
    - Automate the generation and tracking of POA&M items for frameworks like FedRAMP.
-
 2. **Security Teams**:
    - Manage and prioritize vulnerabilities from various scanning tools in a centralized system.
-
 3. **IT Managers**:
    - Gain visibility into open issues, remediation plans, and asset dependencies.
-
-4. **Auditors**:
-   - Access detailed records of compliance and mitigation efforts.
-
-This app simplifies POA&M tracking, reduces manual effort, and ensures compliance with rigorous security standards.
