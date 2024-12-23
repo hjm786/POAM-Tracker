@@ -2,74 +2,74 @@ from openpyxl import load_workbook
 from flask import send_file
 from datetime import datetime
 import os
-from models import POAM  # Import your database model for PO&AM items
+from models import POAM, Finding  # Import database models
 import pandas as pd
 
-# Path to the FedRAMP PO&AM Template
 TEMPLATE_PATH = "/mnt/data/FedRAMP-POAM-Template.xlsx"
 
 def export_poam_with_template():
     """
-    Populates the provided FedRAMP PO&AM Template with data from the database.
+    Populates the provided FedRAMP PO&AM Template with data for all three sheets:
+    Open POA&M Items, Closed POA&M Items, and Configuration Findings.
     """
     # Load the Excel template
     workbook = load_workbook(TEMPLATE_PATH)
-    active_sheet = workbook.active  # Assuming the first sheet is the one to populate
 
-    # Fetch PO&AM items from the database
-    poam_items = POAM.query.all()  # Replace with filtered queries if needed
+    # Sheets from the template
+    open_sheet = workbook["Open POA&M Items"]
+    closed_sheet = workbook["Closed POA&M Items"]
+    config_sheet = workbook["Configuration Findings"]
 
-    # Define the starting row
-    row = 2  # Assuming the first row contains headers
+    # Fetch POA&M items
+    open_items = POAM.query.filter_by(status="Active").all()
+    closed_items = POAM.query.filter_by(status="Resolved").all()
 
-    # Populate the template
-    for item in poam_items:
-        active_sheet[f"A{row}"] = item.id
-        active_sheet[f"B{row}"] = item.weakness
-        active_sheet[f"C{row}"] = item.description
-        active_sheet[f"D{row}"] = item.severity
-        active_sheet[f"E{row}"] = item.status
-        active_sheet[f"F{row}"] = datetime.strftime(item.detection_date, "%m/%d/%Y") if item.detection_date else ""
-        active_sheet[f"G{row}"] = datetime.strftime(item.last_updated, "%m/%d/%Y") if item.last_updated else ""
-        active_sheet[f"H{row}"] = item.product_name
-        active_sheet[f"I{row}"] = item.risk_rating
-        active_sheet[f"J{row}"] = item.detector_source
-        row += 1
+    # Mocked configuration findings; replace with actual database query
+    configuration_findings = [
+        {"id": 1, "description": "Database lacks encryption", "severity": "Medium", "detection_date": "2024-12-01"},
+        {"id": 2, "description": "Unauthorized access detected", "severity": "High", "detection_date": "2024-11-25"}
+    ]
+
+    # Populate Open POA&M Items
+    open_row = 2  # Assuming the first row is the header
+    for item in open_items:
+        open_sheet[f"A{open_row}"] = item.id
+        open_sheet[f"B{open_row}"] = item.weakness
+        open_sheet[f"C{open_row}"] = item.description
+        open_sheet[f"D{open_row}"] = item.severity
+        open_sheet[f"E{open_row}"] = item.status
+        open_sheet[f"F{open_row}"] = datetime.strftime(item.detection_date, "%m/%d/%Y") if item.detection_date else ""
+        open_sheet[f"G{open_row}"] = datetime.strftime(item.last_updated, "%m/%d/%Y") if item.last_updated else ""
+        open_sheet[f"H{open_row}"] = item.product_name
+        open_sheet[f"I{open_row}"] = item.risk_rating
+        open_sheet[f"J{open_row}"] = item.detector_source
+        open_row += 1
+
+    # Populate Closed POA&M Items
+    closed_row = 2
+    for item in closed_items:
+        closed_sheet[f"A{closed_row}"] = item.id
+        closed_sheet[f"B{closed_row}"] = item.weakness
+        closed_sheet[f"C{closed_row}"] = item.description
+        closed_sheet[f"D{closed_row}"] = item.severity
+        closed_sheet[f"E{closed_row}"] = item.status
+        closed_sheet[f"F{closed_row}"] = datetime.strftime(item.detection_date, "%m/%d/%Y") if item.detection_date else ""
+        closed_sheet[f"G{closed_row}"] = datetime.strftime(item.last_updated, "%m/%d/%Y") if item.last_updated else ""
+        closed_sheet[f"H{closed_row}"] = item.product_name
+        closed_sheet[f"I{closed_row}"] = item.risk_rating
+        closed_sheet[f"J{closed_row}"] = item.detector_source
+        closed_row += 1
+
+    # Populate Configuration Findings
+    config_row = 2
+    for finding in configuration_findings:
+        config_sheet[f"A{config_row}"] = finding["id"]
+        config_sheet[f"B{config_row}"] = finding["description"]
+        config_sheet[f"C{config_row}"] = finding["severity"]
+        config_sheet[f"D{config_row}"] = finding["detection_date"]
+        config_row += 1
 
     # Save the populated template
     output_path = "Exported_FedRAMP_POAM.xlsx"
     workbook.save(output_path)
     return output_path
-
-def generate_poam_excel():
-    """
-    Generates an Excel file with active and resolved PO&AM items.
-    """
-    # Query active and resolved PO&AM items
-    active_items = POAM.query.filter_by(status="Active").all()
-    resolved_items = POAM.query.filter_by(status="Resolved").all()
-
-    # Convert to DataFrame
-    active_df = pd.DataFrame([{
-        "ID": item.id,
-        "Weakness": item.weakness,
-        "Severity": item.severity,
-        "Status": item.status,
-        "Last Updated": item.last_updated
-    } for item in active_items])
-
-    resolved_df = pd.DataFrame([{
-        "ID": item.id,
-        "Weakness": item.weakness,
-        "Severity": item.severity,
-        "Status": item.status,
-        "Last Updated": item.last_updated
-    } for item in resolved_items])
-
-    # Create Excel file
-    file_path = "poam_items.xlsx"
-    with pd.ExcelWriter(file_path, engine='openpyxl') as writer:
-        active_df.to_excel(writer, sheet_name="Active Items", index=False)
-        resolved_df.to_excel(writer, sheet_name="Resolved Items", index=False)
-
-    return file_path

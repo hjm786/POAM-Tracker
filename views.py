@@ -57,8 +57,9 @@ def poam_items():
 
 @main_bp.route('/export-poam', methods=['GET'])
 def export_poam():
-    file_path = generate_poam_excel()
+    file_path = export_poam_with_template()
     return send_file(file_path, as_attachment=True)
+
 
 @main_bp.route('/export-scan-results', methods=['GET'])
 def export_scan_results():
