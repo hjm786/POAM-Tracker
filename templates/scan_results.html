@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Scan Results</h1>
+
+<!-- Scan Dropdown -->
+<div id="scan-dropdown" hx-get="/scans" hx-trigger="load" hx-target="#scan-dropdown">
+    Loading scans...
+</div>
+
+<!-- Scan Table -->
+<div id="scan-table">
+    <p>Select a scan to view results.</p>
+</div>
+{% endblock %}

@@ -1,0 +1,30 @@
+<table>
+    <thead>
+        <tr>
+            <th>Tool</th>
+            <th>Severity</th>
+            <th>Description</th>
+            <th>Detection Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for result in results %}
+        <tr>
+            <td>{{ result.tool }}</td>
+            <td>{{ result.severity }}</td>
+            <td>{{ result.description }}</td>
+            <td>{{ result.detection_date }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<!-- Pagination Controls -->
+<div>
+    {% if prev_page %}
+        <button hx-get="/scan-results?scan={{ scan_id }}&page={{ prev_page }}" hx-target="#scan-table">Previous</button>
+    {% endif %}
+    {% if next_page %}
+        <button hx-get="/scan-results?scan={{ scan_id }}&page={{ next_page }}" hx-target="#scan-table">Next</button>
+    {% endif %}
+</div>

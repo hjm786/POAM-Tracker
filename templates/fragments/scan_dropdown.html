@@ -1,0 +1,6 @@
+<select id="scan-select" hx-get="/scan-results" hx-target="#scan-table" hx-trigger="change">
+    <option value="">Select a Scan</option>
+    {% for scan in scans %}
+        <option value="{{ scan.id }}">{{ scan.name }}</option>
+    {% endfor %}
+</select>
