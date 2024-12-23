@@ -9,8 +9,9 @@ def fetch_tenable_findings():
     if not config:
         raise ValueError("Tenable integration is not configured.")
 
-    # Initialize Tenable client
-    tio = TenableIO(config['access_key'], config['secret_key'])
+    # Initialize Tenable client with the specified domain
+    domain = config.get("domain", "cloud.tenable.com")
+    tio = TenableIO(config['access_key'], config['secret_key'], domain=domain)
 
     # Example: Fetch vulnerabilities
     vulnerabilities = tio.vulns.list()

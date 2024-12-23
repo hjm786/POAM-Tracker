@@ -110,3 +110,47 @@ def update_integration(integration_name):
     config_data = request.json
     set_integration_config(integration_name, config_data)
     return jsonify({"message": f"{integration_name} configuration updated successfully!"}), 200
+
+@main_bp.route('/integrations/<integration_name>/edit', methods=['GET'])
+def edit_integration(integration_name):
+    """
+    Fetch the current configuration and render the edit form.
+    """
+    config = get_integration_config(integration_name) or {}
+    return render_template('fragments/edit_integration.html', integration_name=integration_name, config=config)
+
+@main_bp.route('/integrations/<integration_name>/config-template', methods=['GET'])
+def get_config_template(integration_name):
+    """
+    Return the configuration template for the selected integration.
+    """
+    config_templates = {
+        "aws_inspector": {
+            "fields": [
+                {"name": "access_key", "label": "Access Key", "type": "text"},
+                {"name": "secret_key", "label": "Secret Key", "type": "text"},
+                {"name": "region", "label": "Region", "type": "text"}
+            ]
+        },
+        "tenable": {
+            "fields": [
+                {"name": "access_key", "label": "Access Key", "type": "text"},
+                {"name": "secret_key", "label": "Secret Key", "type": "text"},
+                {"name": "domain", "label": "Domain", "type": "select", "options": ["federal.tenable.com", "cloud.tenable.com"]},
+                {"name": "scanner_type", "label": "Scanner Type", "type": "select", "options": ["vulnerability", "compliance"]}
+            ]
+        },
+        "github": {
+            "fields": [
+                {"name": "access_token", "label": "Access Token", "type": "text"},
+                {"name": "repository", "label": "Repository", "type": "text"}
+            ]
+        },
+        "google_space": {
+            "fields": [
+                {"name": "webhook_url", "label": "Webhook URL", "type": "url"}
+            ]
+        }
+    }
+
+    return jsonify(config_templates.get(integration_name, {"fields": []}))

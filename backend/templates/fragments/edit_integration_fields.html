@@ -1,0 +1,14 @@
+{% for field in fields %}
+<div>
+    <label for="{{ field.name }}">{{ field.label }}:</label>
+    {% if field.type == 'select' %}
+        <select id="{{ field.name }}" name="{{ field.name }}">
+            {% for option in field.options %}
+            <option value="{{ option }}" {% if config.get(field.name) == option %}selected{% endif %}>{{ option }}</option>
+            {% endfor %}
+        </select>
+    {% else %}
+        <input type="{{ field.type }}" id="{{ field.name }}" name="{{ field.name }}" value="{{ config.get(field.name, '') }}">
+    {% endif %}
+</div>
+{% endfor %}

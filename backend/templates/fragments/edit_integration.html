@@ -1,0 +1,13 @@
+<form hx-post="{{ url_for('main.update_integration', integration_name=integration_name) }}"
+      hx-target="#integration-modal"
+      hx-swap="outerHTML">
+    <h2>Edit {{ integration_name }} Configuration</h2>
+
+    <div id="config-fields" hx-get="{{ url_for('main.get_config_template', integration_name=integration_name) }}"
+         hx-trigger="load"
+         hx-target="#config-fields">
+        <!-- Dynamic fields will be loaded here -->
+    </div>
+
+    <button type="submit">Save</button>
+</form>
