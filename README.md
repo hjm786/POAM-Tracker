@@ -1,8 +1,8 @@
-# POAM-Pilot
+# POAM-Tracker
 
 ### [DOCUMENTATION](https://github.com/Elevated-Standards/POAM-Pilot/wiki)
 
-The POAM (Plan of Action and Milestones) Pilot App is a web-based application designed to streamline the tracking, management, and reporting of security vulnerabilities and compliance requirements. The app integrates with popular vulnerability scanning tools (e.g., AWS Inspector, Tenable) and provides an efficient way to manage POA&M items for compliance frameworks such as FedRAMP.
+The POAM (Plan of Action and Milestones) Tracker App is a fork of POAM-Pilot project by Elevated-Standards. This is a web-based application designed to streamline the tracking, management, and reporting of security vulnerabilities and compliance requirements. The app integrates with popular vulnerability scanning tools (e.g., AWS Inspector, Tenable) and provides an efficient way to manage POA&M items for compliance frameworks such as FedRAMP.
 
 ### Key Features
 
